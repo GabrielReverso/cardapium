@@ -1,19 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-  <CategorySection title="Categoria 1" />
+  <!-- <div class="flex flex-row relative"> -->
+  <div class="flex flex-col flex-grow">
+    <CategorySection title="Categoria 1" />
+  </div>
+  <Bag />
+  <!-- </div> -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import CategorySection from './components/CategorySection.vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Bag from './components/Bag.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
-    CategorySection
+    CategorySection,
+    Bag
   }
 });
 </script>
@@ -25,6 +28,5 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

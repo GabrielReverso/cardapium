@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-auto w-full bg-gray-100 py-5 pl-16">
+    <div class="flex flex-col h-auto w-full py-5 pl-16">
         <div class="flex flex-row w-full items-center self-start">
             <h1 class="text-3xl font-bold">{{ title }}</h1>
             <hr class="mx-8 flex-grow">
