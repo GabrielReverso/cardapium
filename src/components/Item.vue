@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row h-80 pt-10">
+    <div class="flex flex-row h-80 pt-10 mb-10">
         <img :src="getImagePath(imageName)" alt="Imagem do produto" class="h-full rounded-lg" style="aspect-ratio: 1/1;"
             loading="lazy">
         <div class="flex flex-col h-full items-start ml-10 py-5 justify-around">
