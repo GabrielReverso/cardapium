@@ -5,7 +5,8 @@
             <hr class="mx-8 flex-grow border-[#2c3e50] border-[1.5px]">
         </div>
         <template v-for="(item, index) in items[title]" :key="index">
-            <Item :title="item.nome" :description="item.descricao" :price="Number(item.preco)" />
+            <Item :title="item.nome" :description="item.descricao" :price="Number(item.preco)"
+                :image-name="item.foto" />
             <hr v-if="index < items[title]?.length - 1" class="mr-8 flex-grow border-[#a3aab1] border-1">
         </template>
     </div>
@@ -20,11 +21,11 @@ interface FoodItem {
     categoria: string,
     nome: string,
     descricao: string,
-    foto?: string,
+    foto?: string | "bannoffee.jpg",
     preco: string
 }
 
-interface FoodItems {
+interface FoodItemsList {
     [key: string]: FoodItem[]
 }
 
@@ -36,7 +37,7 @@ export default defineComponent({
             default: "Categoria"
         },
         items: {
-            type: Object as PropType<FoodItems>,
+            type: Object as PropType<FoodItemsList>,
             default: () => ({})
         }
     },

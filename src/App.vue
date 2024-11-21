@@ -23,11 +23,11 @@ interface FoodItem {
   categoria: string,
   nome: string,
   descricao: string,
-  foto?: string,
+  foto?: string | "bannoffee.jpg",
   preco: string
 }
 
-interface FoodItems {
+interface FoodItemsList {
   [key: string]: FoodItem[]
 }
 
@@ -39,16 +39,8 @@ export default defineComponent({
   },
   data() {
     return {
-      /*  categories: [
-         { title: "Categoria 1" },
-         { title: "Categoria 2" },
-         { title: "Categoria 3" },
-         { title: "Categoria 4" },
-         { title: "Categoria 5" }
-       ], */
       receivedCategories: [] as ReceivedCategory[],
-      //receivedItems: [] as ReceivedItems[]
-      items: {} as FoodItems
+      items: {} as FoodItemsList
     };
   },
   mounted() {
@@ -56,29 +48,50 @@ export default defineComponent({
 
     var xhr = new XMLHttpRequest();
 
+    xhr.onerror = function (error) {
+      console.error('Erro na requisição:', error);
+      handleDefaultData();
+    };
+
     xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var dados: FoodItems = JSON.parse(this.responseText);
-
-        self.items = { ...dados }
-
-        console.log(self.items)
-
-        // Extrair as chaves do objeto JSON e adicionar ao array receivedCategories
-        Object.keys(dados).forEach(category => {
-          self.receivedCategories.push({ title: category });
-          /* Object.values(dados[category]).forEach(item => {
-            self.receivedItems.push({ title: item.Nome, category: item.categoria })
-          }) */
-        });
-
-        //console.log(self.receivedCategories);
-        //console.log(self.receivedItems);
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          try {
+            var dados: FoodItemsList = JSON.parse(this.responseText);
+            self.items = { ...dados };
+            console.log(self.items);
+            Object.keys(dados).forEach(category => {
+              self.receivedCategories.push({ title: category });
+            });
+          } catch (error) {
+            console.error('Erro ao parsear JSON:', error);
+            handleDefaultData();
+          }
+        } else {
+          console.warn(`Status não 200: ${this.status}`);
+          handleDefaultData();
+        }
       }
-    } // Use bind para acessar o contexto 'this' corretamente
+    };
 
-    xhr.open("POST", "http://localhost:8000/home.php", true);
+    xhr.open("POST", "http://localhost:8000/getData.php", true);
     xhr.send();
+
+    function handleDefaultData() {
+      // Definir dados padrão em caso de erro
+      self.items = {
+        "Exemplo": [{
+          nome: 'Item de exemplo',
+          id: '1',
+          categoria: 'Exemplo',
+          descricao: 'Item de exemplo, se está vendo isso ocorreu algum erro no banco de dados ou o site está em modo de demonstração',
+          preco: '100.00'
+        }]
+      };
+      self.receivedCategories = [
+        { title: "Exemplo" },
+      ];
+    }
   }
 });
 </script>
