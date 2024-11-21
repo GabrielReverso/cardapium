@@ -4,16 +4,29 @@
             <h1 class="text-3xl font-bold text-[#2c3e50]">{{ title }}</h1>
             <hr class="mx-8 flex-grow border-[#2c3e50] border-[1.5px]">
         </div>
-        <template v-for="(item, index) in items" :key="index">
-            <Item :title="item.title" />
-            <hr v-if="index < items.length - 1" class="mr-8 flex-grow border-[#a3aab1] border-1">
+        <template v-for="(item, index) in items[title]" :key="index">
+            <Item :title="item.nome" :description="item.descricao" :price="Number(item.preco)" />
+            <hr v-if="index < items[title]?.length - 1" class="mr-8 flex-grow border-[#a3aab1] border-1">
         </template>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import Item from './Item.vue';
+
+interface FoodItem {
+    id: string,
+    categoria: string,
+    nome: string,
+    descricao: string,
+    foto?: string,
+    preco: string
+}
+
+interface FoodItems {
+    [key: string]: FoodItem[]
+}
 
 export default defineComponent({
     name: 'CategorySection',
@@ -21,22 +34,24 @@ export default defineComponent({
         title: {
             type: String,
             default: "Categoria"
+        },
+        items: {
+            type: Object as PropType<FoodItems>,
+            default: () => ({})
         }
     },
     components: {
         Item
     },
-    data() {
-        return {
-            items: [
-                { title: "Item 1 da " + this.title },
-                { title: "Item 2 da " + this.title },
-                { title: "Item 3 da " + this.title }
-            ]
-        };
-    },
-    mounted() {
-        console.log(this.title)
-    }
+    /*     data() {
+            return {
+                items: [
+                    { title: "Item 1 da " + this.title },
+                    { title: "Item 2 da " + this.title },
+                    { title: "Item 3 da " + this.title }
+                ]
+    
+            };
+        }, */
 });
 </script>
