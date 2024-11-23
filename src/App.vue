@@ -1,12 +1,10 @@
 <template>
-  <!-- <div class="flex flex-row relative"> -->
   <div class="flex flex-col flex-grow">
     <template v-for="(category, index) in receivedCategories" :key="index">
       <CategorySection :title="category.title" :items="items" />
     </template>
   </div>
   <Bag />
-  <!-- </div> -->
 </template>
 
 <script lang="ts">
@@ -102,6 +100,5 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 </style>

@@ -5,26 +5,96 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <!--   <meta http-equiv="Access-Control-Allow-Origin" content="*">
   <meta http-equiv="Access-Control-Allow-Methods" content="GET, POST, OPTIONS, PUT, PATCH, DELETE">
-  <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type, Authorization">
+  <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type, Authorization"> -->
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>
     Cardapium
   </title>
 </head>
 
-<body class="flex flex-col w-screen min-h-screen overflow-x-hidden select-none" style="background-color: #f5f5f5;">
+<body class="flex flex-col w-screen min-h-screen overflow-x-hidden select-none text-cardapiumText bg-[#f5f5f5]">
   <noscript>
     <strong>Ative JavaScript para continuar</strong>
   </noscript>
-  <header class="h-44 w-full z-50" style="background-color: #033043;">
-
+  <header class="flex flex-row h-24 w-full z-50 p-4 bg-cardapiumPrimary justify-between">
+    <div class="flex flex-row h-full relative">
+      <img class="aspect-square h-full rounded-md" alt="Cardapium Logo" src="<%= BASE_URL %>logo.png">
+      <h1 class="text-5xl text-[#f5f5f5] text-center font-extrabold ml-4 py-3"
+        style="font-family: 'Courier New', Courier, monospace;">Cardapium
+      </h1>
+    </div>
+    <div id="action-buttons" class="flex flex-row h-full items-center">
+      <button onclick="openModal('login')" class="flex justify-center items-center w-26 h-1/2 mx-3 p-5 rounded-xl 
+        border-2 border-cardapiumComponent text-cardapiumComponent font-bold text-xl 
+        hover:opacity-85 transition-colors">
+        Login
+      </button>
+      <button onclick="openModal('register')" class="flex justify-center items-center w-26 h-1/2 mx-3 p-5 rounded-xl 
+        border-2 border-cardapiumComponent bg-cardapiumComponent font-bold text-xl 
+        hover:opacity-85 transition-colors">
+        Cadastro
+      </button>
+    </div>
   </header>
+  <div id="login-modal"
+    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center flex ">
+    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
+      <button onclick="closeModal('login')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <h1 class="text-4xl font-bold text-[#f5f5f5] self-center">LOGIN</h1>
+      <form action="" method="post" class="flex flex-col flex-grow justify-center">
+        <label for="email" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
+        <input id="email" type="email" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="password" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Senha</label>
+        <input id="password" type="password" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <button onclick="openModal('password-recovery')"
+          class="self-start ml-12 mt-1 text-xl text-[#b4b4b4] transition-colors hover:text-[#f5f5f5]">Esqueci a
+          senha</button>
+        <input type="submit" value="Entrar" class="m-auto mb-5 flex justify-center items-center w-26 py-2 px-6 rounded-2xl 
+        border-2 border-cardapiumComponent bg-cardapiumComponent font-bold text-2xl 
+        hover:opacity-85 transition-colors">
+      </form>
+    </main>
+  </div>
+  <div id="register-modal"
+    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
+    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative">
+      <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit">X</button>
+      <form action=""></form>
+    </main>
+  </div>
+  <div id="password-recovery-modal"
+    class="absolute z-50 w-screen h-screen bg-transparent justify-center items-center hidden ">
+    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative">
+      <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit">X</button>
+      <form action=""></form>
+    </main>
+  </div>
+
+  <!-- *************************** Vue Start *************************** -->
   <main class="flex flex-row relative flex-grow" id="app"></main>
+  <!-- *************************** Vue End ***************************** -->
+
   <footer class="h-28 w-full z-50" style="background-color: #222222;">
 
   </footer>
+  <script>
+
+    function openModal(type) {
+      const element = document.getElementById(`${type}-modal`)
+      element.classList.remove('hidden')
+      element.classList.add('flex')
+      element.focus()
+    }
+
+    function closeModal(type) {
+      const element = document.getElementById(`${type}-modal`)
+      element.classList.remove('flex')
+      element.classList.add('hidden')
+    }
+
+  </script>
 </body>
 
 </html>

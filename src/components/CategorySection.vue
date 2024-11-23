@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col h-auto w-full py-5 pl-16 pr-16">
         <div class="flex flex-row w-full items-center self-start">
-            <h1 class="text-3xl font-bold text-[#2c3e50]">{{ title }}</h1>
-            <hr class="mx-8 flex-grow border-[#2c3e50] border-[1.5px]">
+            <h1 class="text-3xl font-bold text-cardapiumText">{{ title }}</h1>
+            <hr class="mx-8 flex-grow border-cardapiumText border-[1.5px]">
         </div>
         <template v-for="(item, index) in items[title]" :key="index">
             <Item :title="item.nome" :description="item.descricao" :price="Number(item.preco)"

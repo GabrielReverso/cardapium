@@ -8,17 +8,17 @@
                 <h3 class="w-10/12 text-left text-3xl mx-auto mt-auto text-[#f0f0f0] font-bold">Total: R$ 100,00</h3>
                 <div class="flex flex-row w-10/12 h-fit m-auto justify-between">
                     <button
-                        class="w-5/12 h-fit rounded-2xl py-3 bg-[#FDA521] drop-shadow-xl transition-colors hover:bg-[#db901e]">
+                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-xl font-bold">Cancelar</p>
                     </button>
                     <button
-                        class="w-5/12 h-fit rounded-2xl py-3 bg-[#FDA521] drop-shadow-xl transition-colors hover:bg-[#db901e]">
+                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-xl font-bold">Pagar</p>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="collapse-button" class="w-[70px] h-[60px] absolute bg-[#0A7273] hover:cursor-pointer"></div>
+        <div id="collapse-button" class="w-[70px] h-[60px] absolute bg-cardapiumSecondary hover:cursor-pointer"></div>
     </aside>
 </template>
 
@@ -46,6 +46,7 @@ export default defineComponent({
 <style scoped>
 #bag {
     width: 700px;
+    max-width: 50vw;
     min-height: calc(100vh - 7rem - 11rem);
     max-height: 100vh;
     background-color: #0A7273;
