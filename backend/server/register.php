@@ -1,6 +1,6 @@
 <?php
     try {
-        include '../conexao/conexao.php';
+        include 'conexao.php';
 
     } catch (\Throwable $th) {
         throw $th;
@@ -11,7 +11,7 @@
     try {
         $NAME = htmlspecialchars($_POST['nome']);
         $EMAIL = htmlspecialchars($_POST['email']);
-        $DATA = htmlspecialchars($_POST['idade']);
+        $DATA = htmlspecialchars($_POST['data']);
         $PHONENUMBER = htmlspecialchars($_POST['telefone']);
         $PASSWORD = htmlspecialchars($_POST['senha']);
         $CEP = htmlspecialchars($_POST['cep']);
@@ -21,8 +21,6 @@
         $COMPLEMENTO = htmlspecialchars($_POST['complemento']);
         $CIDADE = htmlspecialchars($_POST['cidade']);
         $ESTADO = htmlspecialchars($_POST['estado']);
-
-
     } catch (\Throwable $th) {
         throw $th;
     }
@@ -38,7 +36,11 @@
         $valited = insert();
         if ($valited == 1){
             http_response_code(200);
-            header("Location: login.html");//mudar conforme a necessidade
+            $dados = array(
+                "status" => "sucesso",
+                "mensagem" => "Cadastro realizado com sucesso"
+            );
+            echo json_encode($dados);
         }elseif ($valited["status"] == "erro bad request"){
             http_response_code(400);
             echo json_encode($valited);

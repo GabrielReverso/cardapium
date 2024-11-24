@@ -2,18 +2,36 @@
     <aside id="bag" class="flex sticky top-0">
         <div id="bag-wrapper" class="flex w-full h-full">
             <div class="flex flex-col h-full w-full">
-                <div id="bag-itens" class="w-10/12 h-[75%] mx-auto mt-5 rounded-xl overflow-y-auto p-5">
-                    <h1 class="text-left text-2xl font-bold">Resumo do pedido</h1>
+                <div id="bag-itens" class="flex flex-col w-10/12 h-[75%] mx-auto mt-5 rounded-xl p-5 relative">
+                    <h1 class="text-left text-3xl font-bold self-center">Resumo do pedido</h1>
+                    <div class="overflow-y-auto overflow-x-hidden mx-1 mt-4 mb-2 h-full">
+                        <template v-for="(item, index) in items" :key="item.id">
+                            <div class="flex flex-row w-full my-6">
+                                <img :src="getImagePath(item.imageName)" alt="Imagem do produto"
+                                    class="h-28 rounded-xl drop-shadow-sm aspect-square self-center" loading="lazy">
+                                <div class="flex flex-col h-full w-full items-start ml-10 py-5 justify-around">
+                                    <h2 class="text-xl font-bold">{{ item.title }}</h2>
+                                    <h2 class="text-xl font-bold text-green-700">{{ formatPrice(item.price * item.qtd)
+                                        }}</h2>
+                                    <h2 class="text-xl font-bold">Quantidade: {{ item.qtd }}</h2>
+                                    <div class="flex flex-row">
+                                        <button class="" @click="removeSingle(index)">Tirar</button>
+                                        <button class="ml-2" @click="removeAll(index)">Remover</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
                 <h3 class="w-10/12 text-left text-3xl mx-auto mt-auto text-[#f0f0f0] font-bold">Total: R$ 100,00</h3>
                 <div class="flex flex-row w-10/12 h-fit m-auto justify-between">
-                    <button
-                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-xl transition-colors hover:bg-cardapiumComponentHover">
-                        <p class="text-xl font-bold">Cancelar</p>
+                    <button @click="cancelHandler"
+                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
+                        <p class="text-2xl font-bold">Cancelar</p>
                     </button>
                     <button
-                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-xl transition-colors hover:bg-cardapiumComponentHover">
-                        <p class="text-xl font-bold">Pagar</p>
+                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
+                        <p class="text-2xl font-bold">Pagar</p>
                     </button>
                 </div>
             </div>
@@ -23,15 +41,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+
+interface BagItem {
+    id: number,
+    title: string,
+    price: number,
+    imageName: string,
+    qtd: number
+}
 
 export default defineComponent({
     name: 'Bag',
+    props: {
+        items: {
+            type: Array as PropType<BagItem[]>,
+            default: () => []
+        }
+    },
     methods: {
         handleCollapseButton() {
-            console.log("clicado");
+            //console.log("clicado");
             document.querySelector("#bag")?.classList.toggle("collapsed")
             document.querySelector("#bag-wrapper")?.classList.toggle("collapsed")
+        },
+        getImagePath(imageName: string): string {
+            try {
+                return require(`../assets/${imageName}`);
+            } catch (error) {
+                console.warn(`Imagem não encontrada: ${imageName}. Usando imagem padrão.`);
+                return require('../assets/bannoffee.jpg');
+            }
+        },
+        formatPrice(price: number): string {
+            return `R$ ${(price).toFixed(2).replace('.', ',')}`;
+        },
+        cancelHandler(): void {
+            this.items.splice(0, this.items.length)
+        },
+        removeSingle(index: number): void {
+            this.items[index].qtd > 1 ? this.items[index].qtd-- : null
+        },
+        removeAll(index: number): void {
+            this.items.splice(index, 1)
         }
     },
     mounted() {
@@ -47,7 +99,7 @@ export default defineComponent({
 #bag {
     width: 700px;
     max-width: 50vw;
-    min-height: calc(100vh - 7rem - 11rem);
+    min-height: calc(100vh - 6rem - 11rem);
     max-height: 100vh;
     background-color: #0A7273;
     filter: drop-shadow(-1px 0px 5px rgba(0, 0, 0, 0.345));

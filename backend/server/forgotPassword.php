@@ -1,7 +1,7 @@
 <?php
 
 try {
-    include '../conexao/conexao.php';
+    include 'conexao.php';
 } catch (\Throwable $th) {
     http_response_code(500);
     echo json_encode(array("status" => "erro", "mensagem" => "falha na conexão"));
@@ -19,17 +19,17 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 
 $userID = validarEmail($EMAIL, $connDB);
 
-echo "id: ". $userID;
+//echo "id: ". $userID;
 
 if ($userID == 0) {
     http_response_code(400);
     echo json_encode(array("status" => "erro", "mensagem" => "dados equivocados"));
-    header("Location: forgotPassword.html");
+    //header("Location: forgotPassword.html");
     exit;
 } elseif ($userID == -1) {
     http_response_code(500);
     echo json_encode(array("status" => "erro", "mensagem" => "erro interno"));
-    header("Location: forgotPassword.html");
+    //header("Location: forgotPassword.html");
     exit;
 }
 
@@ -40,11 +40,11 @@ $result = alterarSenha($NEWPASSWORD, $userID, $connDB);
 if ($result == 1) {
     http_response_code(200);
     echo json_encode(array("status" => "alterado", "mensagem" => "senha alterada com sucesso"));
-    header("Location: login.html");
+    //header("Location: login.html");
 } elseif ($result == -1) {
     http_response_code(400);
     echo json_encode(array("status" => "erro", "mensagem" => "erro ao alterar a senha"));
-    header("Location: forgotPassword.html");
+    //header("Location: forgotPassword.html");
 }
 
 $connDB->close();

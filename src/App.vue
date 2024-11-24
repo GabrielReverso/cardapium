@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col flex-grow">
     <template v-for="(category, index) in receivedCategories" :key="index">
-      <CategorySection :title="category.title" :items="items" />
+      <CategorySection @add-item="addItemToBag" :title="category.title" :items="items" />
     </template>
   </div>
-  <Bag />
+  <Bag :items="bagItems" />
 </template>
 
 <script lang="ts">
@@ -29,6 +29,14 @@ interface FoodItemsList {
   [key: string]: FoodItem[]
 }
 
+interface BagItem {
+  id: number,
+  title: string,
+  price: number,
+  imageName: string,
+  qtd: number
+}
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -38,8 +46,15 @@ export default defineComponent({
   data() {
     return {
       receivedCategories: [] as ReceivedCategory[],
-      items: {} as FoodItemsList
+      items: {} as FoodItemsList,
+      bagItems: [] as BagItem[]
     };
+  },
+  methods: {
+    addItemToBag(itemData: BagItem) {
+      const existingItem = this.bagItems.find(i => i.id === itemData.id);
+      existingItem ? existingItem.qtd++ : this.bagItems.push(itemData);
+    }
   },
   mounted() {
     const self = this;

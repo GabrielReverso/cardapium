@@ -3,7 +3,7 @@
     session_start();
 
     try {
-        include '../conexao/conexao.php';
+        include 'conexao.php';
 
     } catch (\Throwable $th) {
         throw $th;
@@ -70,7 +70,7 @@ function listItensAll($connDB) {
                 while ($row = $result->fetch_assoc()) {
                     $item = [
                         "id" => htmlspecialchars($row["item_id"]),
-                        "Nome" => htmlspecialchars($row["item_nome"]),
+                        "nome" => htmlspecialchars($row["item_nome"]),
                         "descricao" => htmlspecialchars($row["item_descricao"]),
                         "foto" => htmlspecialchars($row["item_foto"]),
                         "preco" => htmlspecialchars($row["item_preco"]),

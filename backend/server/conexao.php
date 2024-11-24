@@ -4,6 +4,7 @@
     $senhaDB = "123";
     $banco = "cardapiumDB";
 
+    header('Access-Control-Allow-Origin: *');
 
     try {
         $connDB = new mysqli($servidor, $usuarioDB, $senhaDB, $banco);

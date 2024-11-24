@@ -2,7 +2,7 @@
     session_start();
 
     try {
-        include '../conexao/conexao.php';
+        include 'conexao.php';
 
     } catch (\Throwable $th) {
         throw $th;

@@ -1,7 +1,7 @@
 <?php
 
     try {
-        include '../conexao/conexao.php';
+        include 'conexao.php';
 
     } catch (\Throwable $th) {
         throw $th;
@@ -23,14 +23,14 @@
         $userID = cathIDUser($EMAIL, $connDB);
         $userName = cathNameUser($EMAIL, $connDB);
 
-       $_SESSION['userID'] = $userID; //armazena o id do usuario para pegar informações no banco
-       $_SESSION['userName'] = $userName;
+        $_SESSION['userID'] = $userID; //armazena o id do usuario para pegar informações no banco
+        $_SESSION['userName'] = $userName;
 
        //criação do cookie
        if (isset($_POST['lembrar'])){ //mudar variavel conforme o front
             setcookie("userID", $userID, time() + (86400 * 30), "/");
             setcookie("userName", $userName, time() + (86400 * 30), "/");
-       }
+        }
 
         http_response_code(200);
         $dados = array(
@@ -39,7 +39,7 @@
         );
         echo json_encode($dados);
 
-        header("Location: ../home/home.html");//mudar conforme a necessidade do front
+        //header("Location: ../home/home.html");//mudar conforme a necessidade do front
     }elseif ($validated == 0){
         http_response_code(400);
         $dados = array(
@@ -47,7 +47,7 @@
             "mensagem" => "dados equivocados"
         );
         echo json_encode($dados);
-        header("Location: login.html");
+        //header("Location: login.html");
     }else {
         http_response_code(500);
         $dados = array(

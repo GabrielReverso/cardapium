@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <!--   <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
   <meta http-equiv="Access-Control-Allow-Methods" content="GET, POST, OPTIONS, PUT, PATCH, DELETE">
-  <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type, Authorization"> -->
+  <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type, Authorization">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>
     Cardapium
@@ -39,38 +39,98 @@
     </div>
   </header>
   <div id="login-modal"
-    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center flex ">
+    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
     <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
       <button onclick="closeModal('login')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
       <h1 class="text-4xl font-bold text-[#f5f5f5] self-center">LOGIN</h1>
-      <form action="" method="post" class="flex flex-col flex-grow justify-center">
-        <label for="email" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
-        <input id="email" type="email" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
-        <label for="password" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Senha</label>
-        <input id="password" type="password" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+      <div class="flex flex-col flex-grow justify-center">
+        <label for="email-login" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
+        <input id="email-login" name="email" type="email"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="password-login" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Senha</label>
+        <input id="password-login" name="senha" type="password"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
         <button onclick="openModal('password-recovery')"
           class="self-start ml-12 mt-1 text-xl text-[#b4b4b4] transition-colors hover:text-[#f5f5f5]">Esqueci a
           senha</button>
-        <input type="submit" value="Entrar" class="m-auto mb-5 flex justify-center items-center w-26 py-2 px-6 rounded-2xl 
+        <button onclick="loginHandler()" class="m-auto mb-5 flex justify-center items-center w-26 py-2 px-6 rounded-2xl 
         border-2 border-cardapiumComponent bg-cardapiumComponent font-bold text-2xl 
-        hover:opacity-85 transition-colors">
-      </form>
+        hover:opacity-85 transition-colors">Entrar</button>
+      </div>
     </main>
   </div>
   <div id="register-modal"
     class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
-    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative">
-      <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit">X</button>
-      <form action=""></form>
+    <main class="flex flex-col h-5/6 w-[38rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
+      <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <h1 class="text-4xl font-bold text-[#f5f5f5] self-center mb-2">CADASTRO</h1>
+      <div class="flex flex-col overflow-y-auto">
+        <label for="name-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Nome</label>
+        <input id="name-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="email-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Email</label>
+        <input id="email-register" type="email" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="data-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Data de Nascimento</label>
+        <input id="data-register" type="date" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="cell-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Telefone</label>
+        <input id="cell-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="password-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Senha</label>
+        <input id="password-register" type="password"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="confirm-password-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Confirmar
+          Senha</label>
+        <input id="confirm-password-register" type="password"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="cep-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">CEP</label>
+        <input id="cep-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="rua-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Rua</label>
+        <input id="rua-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="numero-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Número</label>
+        <input id="numero-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="bairro-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Bairro</label>
+        <input id="bairro-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="complemento-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Complemento</label>
+        <input id="complemento-register" type="text"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="cidade-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Cidade</label>
+        <input id="cidade-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="estado-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Estado</label>
+        <input id="estado-register" type="text" class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <button onclick="registerHandler()" class="mx-auto my-6 flex justify-center items-center w-26 py-2 px-6 rounded-2xl 
+        border-2 border-cardapiumComponent bg-cardapiumComponent font-bold text-2xl 
+        hover:opacity-85 transition-colors">Cadastrar</button>
+      </div>
     </main>
   </div>
   <div id="password-recovery-modal"
     class="absolute z-50 w-screen h-screen bg-transparent justify-center items-center hidden ">
-    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative">
-      <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit">X</button>
-      <form action=""></form>
+    <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
+      <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <h1 class="text-4xl font-bold text-[#f5f5f5] self-center">Recuperar Senha</h1>
+      <div class="flex flex-col flex-grow justify-center">
+        <label for="email-recovery" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
+        <input id="email-recovery" name="email" type="email"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="password-recovery" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Senha</label>
+        <input id="password-recovery" name="senha" type="password"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <label for="confirm-password-recovery" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Confirmar
+          Senha</label>
+        <input id="confirm-password-recovery" name="senha" type="password"
+          class="text-xl mx-10 h-12 p-4 outline-none bg-[#f5f5f5] rounded-3xl">
+        <button onclick="passwordRecoveryHandler()" class="m-auto mb-5 flex justify-center items-center w-26 py-2 px-6 rounded-2xl 
+        border-2 border-cardapiumComponent bg-cardapiumComponent font-bold text-2xl 
+        hover:opacity-85 transition-colors">Recuperar</button>
+      </div>
     </main>
   </div>
+
+  <!--  <style>
+    #password-recovery-modal,
+    #login-modal,
+    #register-modal {
+      display: none;
+    }
+  </style> -->
 
   <!-- *************************** Vue Start *************************** -->
   <main class="flex flex-row relative flex-grow" id="app"></main>
@@ -79,22 +139,7 @@
   <footer class="h-28 w-full z-50" style="background-color: #222222;">
 
   </footer>
-  <script>
-
-    function openModal(type) {
-      const element = document.getElementById(`${type}-modal`)
-      element.classList.remove('hidden')
-      element.classList.add('flex')
-      element.focus()
-    }
-
-    function closeModal(type) {
-      const element = document.getElementById(`${type}-modal`)
-      element.classList.remove('flex')
-      element.classList.add('hidden')
-    }
-
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
