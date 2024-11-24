@@ -105,7 +105,7 @@ function registerHandler() {
     if (
         isEmpty(nameInput.value) ||
         isEmpty(emailInput.value) ||
-        //isEmpty(dataInput.value) ||
+        isEmpty(dataInput.value) ||
         isEmpty(cellInput.value) ||
         isEmpty(passwordInput.value) ||
         isEmpty(confirmPasswordInput.value) ||

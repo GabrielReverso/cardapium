@@ -41,7 +41,8 @@
   <div id="login-modal"
     class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
     <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
-      <button onclick="closeModal('login')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <button onclick="closeModal('login')" class="text-xl text-[#f5f5f5] max-w-fit self-end">
+        <i class="icon-cancel"></i></button>
       <h1 class="text-4xl font-bold text-[#f5f5f5] self-center">LOGIN</h1>
       <div class="flex flex-col flex-grow justify-center">
         <label for="email-login" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
@@ -62,7 +63,8 @@
   <div id="register-modal"
     class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
     <main class="flex flex-col h-5/6 w-[38rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
-      <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit self-end"><i
+          class="icon-cancel"></i></button>
       <h1 class="text-4xl font-bold text-[#f5f5f5] self-center mb-2">CADASTRO</h1>
       <div class="flex flex-col overflow-y-auto">
         <label for="name-register" class="font-bold ml-12 mt-10 mb-1 text-2xl text-[#f5f5f5]">Nome</label>
@@ -104,7 +106,8 @@
   <div id="password-recovery-modal"
     class="absolute z-50 w-screen h-screen bg-transparent justify-center items-center hidden ">
     <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
-      <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit self-end">X</button>
+      <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit self-end"><i
+          class="icon-cancel"></i></button>
       <h1 class="text-4xl font-bold text-[#f5f5f5] self-center">Recuperar Senha</h1>
       <div class="flex flex-col flex-grow justify-center">
         <label for="email-recovery" class="font-bold ml-12 mt-12 mb-1 text-2xl text-[#f5f5f5]">Email</label>
@@ -136,7 +139,7 @@
   <main class="flex flex-row relative flex-grow" id="app"></main>
   <!-- *************************** Vue End ***************************** -->
 
-  <footer class="h-28 w-full z-50" style="background-color: #222222;">
+  <footer class="h-28 w-full z-10" style="background-color: #222222;">
 
   </footer>
   <script src="script.js"></script>

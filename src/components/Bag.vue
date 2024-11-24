@@ -13,23 +13,35 @@
                                     <h2 class="text-xl font-bold">{{ item.title }}</h2>
                                     <h2 class="text-xl font-bold text-green-700">{{ formatPrice(item.price * item.qtd)
                                         }}</h2>
-                                    <h2 class="text-xl font-bold">Quantidade: {{ item.qtd }}</h2>
                                     <div class="flex flex-row">
-                                        <button class="" @click="removeSingle(index)">Tirar</button>
-                                        <button class="ml-2" @click="removeAll(index)">Remover</button>
+                                        <h2 class="text-xl font-bold mr-3">Quantidade:</h2>
+                                        <button @click="removeSingle(index)"
+                                            class="mr-3 py-[1px] px-[2px] aspect-square rounded-lg drop-shadow-sm bg-gray-50"><i
+                                                class="icon-minus"></i></button>
+                                        <h2 class="mr-3 text-xl font-bold">{{ item.qtd }}</h2>
+                                        <button @click="addSingle(index)"
+                                            class="mr-3 py-[1px] px-[2px] aspect-square rounded-lg drop-shadow-sm bg-gray-50"><i
+                                                class="icon-plus"></i></button>
+                                    </div>
+                                    <div class="flex flex-row">
+                                        <button class="text-red-900 mr-1 text-lg"
+                                            @click="removeAll(index)">Remover</button>
+                                        <i class="icon-trash text-red-900 text-lg"></i>
                                     </div>
                                 </div>
                             </div>
                         </template>
                     </div>
                 </div>
-                <h3 class="w-10/12 text-left text-3xl mx-auto mt-auto text-[#f0f0f0] font-bold">Total: R$ 100,00</h3>
+                <h3 class="w-10/12 text-left text-3xl mx-auto mt-auto text-[#f0f0f0] font-bold">Total: {{
+                    formatPrice(getTotal()) }}
+                </h3>
                 <div class="flex flex-row w-10/12 h-fit m-auto justify-between">
                     <button @click="cancelHandler"
                         class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-2xl font-bold">Cancelar</p>
                     </button>
-                    <button
+                    <button @click="paymentHandler"
                         class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-2xl font-bold">Pagar</p>
                     </button>
@@ -49,6 +61,12 @@ interface BagItem {
     price: number,
     imageName: string,
     qtd: number
+}
+
+interface Order {
+    itemIds: number[],
+    itemQtds: number[],
+    itemPrices: number[]
 }
 
 export default defineComponent({
@@ -82,8 +100,35 @@ export default defineComponent({
         removeSingle(index: number): void {
             this.items[index].qtd > 1 ? this.items[index].qtd-- : null
         },
+        addSingle(index: number): void {
+            this.items[index].qtd++
+        },
         removeAll(index: number): void {
             this.items.splice(index, 1)
+        },
+        getTotal(): number {
+            let total = 0
+
+            this.items.map(item => {
+                total += item.price * item.qtd
+            })
+
+            return total
+        },
+        paymentHandler() {
+            let order: Order = {
+                itemIds: [],
+                itemQtds: [],
+                itemPrices: []
+            }
+
+            this.items.map(item => {
+                order.itemIds.push(item.id)
+                order.itemQtds.push(item.qtd)
+                order.itemPrices.push(item.price * item.qtd)
+            })
+
+            console.log(order)
         }
     },
     mounted() {
