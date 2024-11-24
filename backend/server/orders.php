@@ -9,11 +9,6 @@
     }
 
 
-    $exemplo = array(
-        "itens" => [1,2,3,4],
-        "quantidade" => [2, 3, 1, 1],
-        "precoRelativo" => [40, 45, 7 , 10]
-    );
 
     if (isset($_POST['carrinho'])){
         
@@ -48,7 +43,7 @@
             http_response_code(500);
         }
 
-        $itenOrder = addItenOrder($connDB, $exemplo, $order);
+        $itenOrder = addItenOrder($connDB, $carrinhoJSON, $order);
         if ($itenOrder == 1){
             $updateOrderValidation = updateOrder($connDB,$order);
             if ($updateOrderValidation == 1){
