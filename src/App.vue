@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col flex-grow">
+    <h1 class="font-bold text-4xl mt-5">CARDÁPIO</h1>
     <template v-for="(category, index) in receivedCategories" :key="index">
       <CategorySection @add-item="addItemToBag" :title="category.title" :items="items" />
     </template>
