@@ -171,13 +171,20 @@ export default defineComponent({
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
+                        if (data.status === "Sucesso") {
+                            alert("Pedido realizado com sucesso!")
+                            this.cancelHandler()
+                        } else {
+                            alert("Ocorreu um erro ao gerar o pedido")
+                        }
                     })
                     .catch(error => console.error('Error:', error));
             } else {
                 const element = document.getElementById(`login-modal`)
-                element?.classList.remove('hidden')
-                element?.classList.add('flex')
-                document.body.classList.add('overflow-y-hidden')
+                if (element) {
+                    element.style.display = "flex"
+                    document.body.classList.add('overflow-y-hidden')
+                }
                 console.log("Usuário inválido")
             }
         }

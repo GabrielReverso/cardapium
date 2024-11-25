@@ -2,4 +2,7 @@
 .icon-plus:before { content: '\e800'; } /* '' */
 .icon-minus:before { content: '\e801'; } /* '' */
 .icon-cancel:before { content: '\e807'; } /* '' */
+.icon-github-circled:before { content: '\f09b'; } /* '' */
 .icon-trash:before { content: '\f1f8'; } /* '' */
+.icon-user-circle-o:before { content: '\f2be'; } /* '' */
+.icon-linkedin-squared:before { content: '\f30c'; } /* '' */

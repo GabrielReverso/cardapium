@@ -1,21 +1,20 @@
 function openModal(type) {
     const element = document.getElementById(`${type}-modal`)
-    element.classList.remove('hidden')
-    element.classList.add('flex')
+    element.style.display = "flex"
     document.body.classList.add('overflow-y-hidden')
     element.focus()
 }
 
 function closeModal(type) {
     const element = document.getElementById(`${type}-modal`)
-    element.classList.remove('flex')
-    element.classList.add('hidden')
+    element.style.display = "none"
     document.body.classList.remove('overflow-y-hidden')
 }
 
 function loginHandler() {
     const emailInput = document.getElementById('email-login');
     const passwordInput = document.getElementById('password-login');
+    const rememberInput = document.getElementById('remember-login');
 
     // Verificar se os campos estão preenchidos
     if (!emailInput.value || !passwordInput.value) {
@@ -23,13 +22,17 @@ function loginHandler() {
         return;
     }
 
+    let message = rememberInput.checked ? `email=${encodeURIComponent(emailInput.value)}&senha=${encodeURIComponent(passwordInput.value)}&lembrar=true` : `email=${encodeURIComponent(emailInput.value)}&senha=${encodeURIComponent(passwordInput.value)}`
+
+    passwordInput.value = ""
+
     fetch('http://localhost:8000/login.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         credentials: "include",
-        body: `email=${encodeURIComponent(emailInput.value)}&senha=${encodeURIComponent(passwordInput.value)}`,
+        body: message,
     })
         .then(response => response.json())
         .then(data => {
@@ -39,10 +42,54 @@ function loginHandler() {
                 globalThis.userID = data.id
                 globalThis.userName = data.name
                 closeModal("login")
+                const loginButton = document.getElementById("login-button")
+                const registerButton = document.getElementById("register-button")
+                const logoutButton = document.getElementById("logout-button")
+                const userProfile = document.getElementById("user-profile")
+                const userNameText = document.getElementById("user-name")
+
+                loginButton.style.display = "none"
+                registerButton.style.display = "none"
+                logoutButton.style.display = "flex"
+                userProfile.style.display = "flex"
+                userNameText.style.display = "flex"
+
+                userNameText.innerHTML = data.name
             } else {
                 console.log(data.status)
+                console.log(data.message)
                 alert('E-mail ou senha incorretos.');
             }
+        })
+        .catch(error => console.error('Erro:', error));
+}
+
+function logoutHandler() {
+
+    fetch('http://localhost:8000/logout.php', {
+        method: 'GET',
+        credentials: "include",
+    })
+        .then(() => {
+
+            closeModal("logout")
+            const loginButton = document.getElementById("login-button")
+            const registerButton = document.getElementById("register-button")
+            const logoutButton = document.getElementById("logout-button")
+            const userProfile = document.getElementById("user-profile")
+            const userNameText = document.getElementById("user-name")
+
+            loginButton.style.display = "flex"
+            registerButton.style.display = "flex"
+            logoutButton.style.display = "none"
+            userProfile.style.display = "none"
+            userNameText.style.display = "none"
+
+            userNameText.innerHTML = ""
+
+            globalThis.userID = undefined
+            globalThis.userName = undefined
+
         })
         .catch(error => console.error('Erro:', error));
 }

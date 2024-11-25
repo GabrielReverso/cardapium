@@ -19,7 +19,7 @@
                 http_response_code(400);
                 echo json_encode([
                 "mensagem" => "O JSON enviado é inválido.",
-                "erro" => json_last_error_msg()
+                "status" => json_last_error_msg()
             ]);
             die;
         }
@@ -30,6 +30,7 @@
         }else {
             http_response_code(400);
             $dados = array(
+                "status" => "Erro",
                 "mensagem" => "não foi encontrado as variaveis userID e userName"
             );
             echo json_encode($dados);
@@ -49,12 +50,14 @@
         if ($order == 0){
             http_response_code(400);
             $dados = array(
+                "status" => "Erro",
                 "mensagem" => "Nenhum pedido encontrado"
             );
             echo json_encode($dados);
         }elseif ($order == -1){
             http_response_code(500);
             $dados = array(
+                "status" => "Erro",
                 "mensagem" => "Erro na solicitação do servidor pros pedidos"
             );
             echo json_encode($dados);
@@ -66,18 +69,21 @@
             if ($updateOrderValidation == 1){
                 http_response_code(200);
                 $dados = array(
+                    "status" => "Sucesso",
                     "mensagem" => "Pedido atualizado"
                 );
                 echo json_encode($dados);
             }elseif($updateOrderValidation == 0){
                 http_response_code(400);
                 $dados = array(
+                    "status" => "Erro",
                     "mensagem" => "Não foi possível fazer update"
                 );
                 echo json_encode($dados);
             }else{
                 http_response_code(500);
                 $dados = array(
+                    "status" => "Erro",
                     "mensagem" => "Erro na solicitação do servidor pros pedidos"
                 );
                 echo json_encode($dados);
@@ -85,12 +91,14 @@
         }elseif ($itenOrder == 0){
             http_response_code(400);
             $dados = array(
+                "status" => "Erro",
                 "mensagem" => "Não adicionado nos pedidos"
             );
             echo json_encode($dados);
         }else{
             http_response_code(500);
             $dados = array(
+                "status" => "Erro",
                 "mensagem" => "Erro na solicitação do servidor pros pedidos"
             );
             echo json_encode($dados);
@@ -98,6 +106,7 @@
     }elseif ($pedidoCriado == 0){
         http_response_code(400);
         $dados = array(
+            "status" => "Erro",
             "mensagem" => "Pedido não criado"
         );
         echo json_encode($dados);
@@ -105,6 +114,7 @@
     }else {
         http_response_code(500);
         $dados = array(
+            "status" => "Erro",
             "mensagem" => "Erro na solicitação do servidor pros pedidos"
         );
         echo json_encode($dados);
