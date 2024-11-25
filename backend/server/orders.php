@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
 
     try {
         include 'conexao.php';
@@ -11,22 +11,31 @@
 
 
     if (isset($_POST['carrinho'])){
-        
-        if (isset($_SESSION['userID']) && isset($_SESSION['userName'])){
-            $userID = $_SESSION['userID'];
-            $userName = $_SESSION['userName'];
 
-    
-        }elseif(isset($_COOKIE['userID']) && isset($_COOKIE['userName'])){
-            $userID = $_COOKIE['userID'];
-            $userName = $_COOKIE['userName'];
+        $carrinhoJSON = json_decode($_POST['carrinho'], true);
+
+            // Verificar se o JSON é válido
+        if (json_last_error() !== JSON_ERROR_NONE) {
+                http_response_code(400);
+                echo json_encode([
+                "mensagem" => "O JSON enviado é inválido.",
+                "erro" => json_last_error_msg()
+            ]);
+            die;
+        }
+        
+        if (array_key_exists('userID', $carrinhoJSON) && array_key_exists('userName', $carrinhoJSON)){
+            $userID = $carrinhoJSON['userID'];
+            $userName = $carrinhoJSON['userName'];
         }else {
             http_response_code(400);
+            $dados = array(
+                "mensagem" => "não foi encontrado as variaveis userID e userName"
+            );
+            echo json_encode($dados);
             $connDB->close();
             die;
         }  
-
-        $carrinhoJSON = json_decode($_POST['carrinho']);
     }else{
         die;
     }
@@ -39,8 +48,16 @@
         $order = catchOrder($connDB, $userID, $userName);
         if ($order == 0){
             http_response_code(400);
+            $dados = array(
+                "mensagem" => "Nenhum pedido encontrado"
+            );
+            echo json_encode($dados);
         }elseif ($order == -1){
             http_response_code(500);
+            $dados = array(
+                "mensagem" => "Erro na solicitação do servidor pros pedidos"
+            );
+            echo json_encode($dados);
         }
 
         $itenOrder = addItenOrder($connDB, $carrinhoJSON, $order);
@@ -48,23 +65,49 @@
             $updateOrderValidation = updateOrder($connDB,$order);
             if ($updateOrderValidation == 1){
                 http_response_code(200);
+                $dados = array(
+                    "mensagem" => "Pedido atualizado"
+                );
+                echo json_encode($dados);
             }elseif($updateOrderValidation == 0){
                 http_response_code(400);
+                $dados = array(
+                    "mensagem" => "Não foi possível fazer update"
+                );
+                echo json_encode($dados);
             }else{
                 http_response_code(500);
+                $dados = array(
+                    "mensagem" => "Erro na solicitação do servidor pros pedidos"
+                );
+                echo json_encode($dados);
             }
         }elseif ($itenOrder == 0){
             http_response_code(400);
+            $dados = array(
+                "mensagem" => "Não adicionado nos pedidos"
+            );
+            echo json_encode($dados);
         }else{
             http_response_code(500);
+            $dados = array(
+                "mensagem" => "Erro na solicitação do servidor pros pedidos"
+            );
+            echo json_encode($dados);
         }
     }elseif ($pedidoCriado == 0){
         http_response_code(400);
-
+        $dados = array(
+            "mensagem" => "Pedido não criado"
+        );
+        echo json_encode($dados);
 
     }else {
         http_response_code(500);
-
+        $dados = array(
+            "mensagem" => "Erro na solicitação do servidor pros pedidos"
+        );
+        echo json_encode($dados);
     }
 
     $connDB->close();
@@ -149,7 +192,7 @@
     function addItenOrder($connDB, $cart, $order){
 
         
-
+        
         $itens = $cart['itens'];
         $quantidade = $cart['quantidade'];
         $precoRelativo = $cart['precoRelativo'];

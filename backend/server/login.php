@@ -18,24 +18,28 @@
     $validated = login($EMAIL, $PASSWORD, $connDB);
 
     if ($validated == 1){
-        session_start(); //inicio da sessão
+        //session_start(); //inicio da sessão
 
         $userID = cathIDUser($EMAIL, $connDB);
         $userName = cathNameUser($EMAIL, $connDB);
 
+        /*
         $_SESSION['userID'] = $userID; //armazena o id do usuario para pegar informações no banco
         $_SESSION['userName'] = $userName;
+        */
 
        //criação do cookie
-       if (isset($_POST['lembrar'])){ //mudar variavel conforme o front
-            setcookie("userID", $userID, time() + (86400 * 30), "/");
-            setcookie("userName", $userName, time() + (86400 * 30), "/");
+        if (isset($_POST['lembrar'])){ //mudar variavel conforme o front
+            setcookie("userID", $userID, time() + (86400 * 30), "localhost", false, true);
+            setcookie("userName", $userName, time() + (86400 * 30), "localhost", false, true);
         }
 
         http_response_code(200);
         $dados = array(
             "status" => "validado",
-            "mensagem" => "usuario validado com sucesso"
+            "mensagem" => "usuario validado com sucesso",
+            "id" => $userID,
+            "name" => $userName
         );
         echo json_encode($dados);
 

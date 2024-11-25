@@ -8,6 +8,7 @@ module.exports = {
         cardapiumSecondary: "#0A7273",
         cardapiumComponent: "#FDA521",
         cardapiumComponentHover: "#db901e",
+        cardapiumComponentDisabled: "#cca263",
         cardapiumText: "#2c3e50"
       }
     },

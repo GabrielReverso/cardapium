@@ -75,7 +75,7 @@ export default defineComponent({
                 qtd: 1
             }
             //Enviar para Bag.vue
-            console.log("Item.vue => ", item)
+            //console.log("Item.vue => ", item)
             this.$emit('add-item', item)
         }
     }

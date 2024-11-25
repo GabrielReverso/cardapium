@@ -28,13 +28,16 @@ function loginHandler() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
+        credentials: "include",
         body: `email=${encodeURIComponent(emailInput.value)}&senha=${encodeURIComponent(passwordInput.value)}`,
     })
         .then(response => response.json())
         .then(data => {
             if (data.status === "validado") {
-                // Redirecionar para a página de sucesso ou atualizar o estado da aplicação
-                console.log("Sucesso")
+                // Atualizar o estado da aplicação
+                console.log("ID: ", data.id, " Nome: ", data.name)
+                globalThis.userID = data.id
+                globalThis.userName = data.name
                 closeModal("login")
             } else {
                 console.log(data.status)

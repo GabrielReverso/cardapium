@@ -1,5 +1,8 @@
 <?php
 
+    header("Access-Control-Allow-Origin: http://localhost:8080");
+    header("Access-Control-Allow-Credentials: true");
+
     session_start();
 
     $validation = validarUsuario();

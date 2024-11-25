@@ -7,5 +7,5 @@
     setcookie("userID", "", time() - 2592001, "/");
     setcookie("userName", "", time() - 2592001, "/");
 
-    header("Location: login.html");
+    //header("Location: login.html");
 ?>

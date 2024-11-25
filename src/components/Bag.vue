@@ -41,7 +41,11 @@
                         class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-2xl font-bold">Cancelar</p>
                     </button>
-                    <button @click="paymentHandler"
+                    <button v-if="items.length === 0" disabled
+                        class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponentDisabled drop-shadow-2xl transition-colors">
+                        <p class="text-2xl font-bold">Pagar</p>
+                    </button>
+                    <button v-else @click="paymentHandler"
                         class="w-5/12 h-fit rounded-2xl py-3 bg-cardapiumComponent drop-shadow-2xl transition-colors hover:bg-cardapiumComponentHover">
                         <p class="text-2xl font-bold">Pagar</p>
                     </button>
@@ -64,9 +68,16 @@ interface BagItem {
 }
 
 interface Order {
+    userID: number | undefined,
+    userName: string | undefined,
     itemIds: number[],
     itemQtds: number[],
     itemPrices: number[]
+}
+
+declare global {
+    var userID: number | undefined;
+    var userName: string | undefined;
 }
 
 export default defineComponent({
@@ -115,20 +126,50 @@ export default defineComponent({
 
             return total
         },
-        paymentHandler() {
-            let order: Order = {
-                itemIds: [],
-                itemQtds: [],
-                itemPrices: []
+        paymentHandler(): void {
+
+            if (globalThis.userID && globalThis.userName) {
+                let order: Order = {
+                    userID: globalThis.userID,
+                    userName: globalThis.userName,
+                    itemIds: [],
+                    itemQtds: [],
+                    itemPrices: []
+                }
+
+                this.items.map(item => {
+                    order.itemIds.push(item.id)
+                    order.itemQtds.push(item.qtd)
+                    order.itemPrices.push(item.price * item.qtd)
+                })
+
+                console.log(order)
+
+                fetch("http://localhost:8000/orders.php", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `carrinho=${JSON.stringify({
+                        userID: order.userID,
+                        userName: order.userName,
+                        itens: order.itemIds,
+                        quantidade: order.itemQtds,
+                        precoRelativo: order.itemPrices
+                    })}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                const element = document.getElementById(`login-modal`)
+                element?.classList.remove('hidden')
+                element?.classList.add('flex')
+                document.body.classList.add('overflow-y-hidden')
+                console.log("Usuário inválido")
             }
-
-            this.items.map(item => {
-                order.itemIds.push(item.id)
-                order.itemQtds.push(item.qtd)
-                order.itemPrices.push(item.price * item.qtd)
-            })
-
-            console.log(order)
         }
     },
     mounted() {

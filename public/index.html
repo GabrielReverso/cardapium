@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta http-equiv="Access-Control-Allow-Origin" content="*">
-  <meta http-equiv="Access-Control-Allow-Methods" content="GET, POST, OPTIONS, PUT, PATCH, DELETE">
+  <meta http-equiv="Access-Control-Allow-Origin" content="http://localhost:8000">
+  <meta http-equiv="Access-Control-Allow-Methods" content="GET, POST">
   <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type, Authorization">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>
@@ -39,7 +39,7 @@
     </div>
   </header>
   <div id="login-modal"
-    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
+    class="fixed z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
     <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
       <button onclick="closeModal('login')" class="text-xl text-[#f5f5f5] max-w-fit self-end">
         <i class="icon-cancel"></i></button>
@@ -61,7 +61,7 @@
     </main>
   </div>
   <div id="register-modal"
-    class="absolute z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
+    class="fixed z-50 w-screen h-screen bg-black bg-opacity-70 backdrop-blur-sm justify-center items-center hidden ">
     <main class="flex flex-col h-5/6 w-[38rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
       <button onclick="closeModal('register')" class="text-xl text-[#f5f5f5] max-w-fit self-end"><i
           class="icon-cancel"></i></button>
@@ -104,7 +104,7 @@
     </main>
   </div>
   <div id="password-recovery-modal"
-    class="absolute z-50 w-screen h-screen bg-transparent justify-center items-center hidden ">
+    class="fixed z-50 w-screen h-screen bg-transparent justify-center items-center hidden ">
     <main class="flex flex-col h-2/3 w-[35rem] bg-cardapiumSecondary rounded-2xl p-3 relative drop-shadow-xl">
       <button onclick="closeModal('password-recovery')" class="text-xl text-[#f5f5f5] max-w-fit self-end"><i
           class="icon-cancel"></i></button>
@@ -140,7 +140,6 @@
   <!-- *************************** Vue End ***************************** -->
 
   <footer class="h-28 w-full z-10" style="background-color: #222222;">
-
   </footer>
   <script src="script.js"></script>
 </body>
