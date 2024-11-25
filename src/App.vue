@@ -21,7 +21,7 @@ interface FoodItem {
   categoria: string,
   nome: string,
   descricao: string,
-  foto?: string | "bannoffee.jpg",
+  foto?: string | "CheeseOverload.png",
   preco: string
 }
 

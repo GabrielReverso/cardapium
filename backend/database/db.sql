@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS cardapiumDB.TB_ITENS_PEDIDOS(
 
 
 -- inserção das categorias
-INSERT INTO TB_CATEGORIA (nome) VALUES ('Hamburgueres');
+INSERT INTO TB_CATEGORIA (nome) VALUES ('Hambúrgueres');
 INSERT INTO TB_CATEGORIA (nome) VALUES ('Hot Dogs');
 INSERT INTO TB_CATEGORIA (nome) VALUES ('Sobremesas');
 INSERT INTO TB_CATEGORIA (nome) VALUES ('Bebidas');

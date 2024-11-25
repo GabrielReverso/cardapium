@@ -21,21 +21,13 @@ interface FoodItem {
     categoria: string,
     nome: string,
     descricao: string,
-    foto?: string | "bannoffee.jpg",
+    foto?: string | "cheeseOverload.png",
     preco: string
 }
 
 interface FoodItemsList {
     [key: string]: FoodItem[]
 }
-
-/* interface BagItem {
-    id: number,
-    title: string,
-    price: number,
-    imageName: string,
-    qtd: number
-} */
 
 export default defineComponent({
     name: 'CategorySection',
@@ -52,20 +44,6 @@ export default defineComponent({
     components: {
         Item
     },
-    /*     emits: ['add-item'],
-        data() {
-            return {
-                bagItems: [] as BagItem[]
-            };
-        },
-        methods: {
-            addItemToBag(itemData: BagItem) {
-                this.bagItems.push(itemData);
-                console.log("Category.vue => ", this.bagItems);
-                // Emitir o evento para App.vue
-                this.$emit('add-item', itemData);
-            }
-        } */
 }
 );
 </script>

@@ -4,15 +4,13 @@
             style="aspect-ratio: 1/1;" loading="lazy">
         <div class="flex flex-col h-full w-full items-start ml-10 py-5 justify-around">
             <h2 class="text-3xl font-bold">{{ title }}</h2>
-            <p class="text-2xl w-3/4 text-left">{{ description }}</p>
+            <p class="text-2xl w-4/5 text-left">{{ description }}</p>
             <h2 class="text-3xl font-bold text-green-700">{{ formatPrice(price) }}</h2>
             <button @click="addItemToBag"
                 class="py-3 px-4 text-cardapiumText text-2xl font-bold drop-shadow-md bg-cardapiumComponent hover:bg-cardapiumComponentHover rounded-2xl">
                 Adicionar
             </button>
         </div>
-        <!--    <div class="flex justify-center items-center">
-        </div> -->
     </div>
 </template>
 
@@ -32,7 +30,7 @@ export default defineComponent({
     props: {
         imageName: {
             type: String,
-            default: "bannoffee.jpg"
+            default: "CheeseOverload.png"
         },
         title: {
             type: String,
@@ -58,7 +56,7 @@ export default defineComponent({
                 return require(`../assets/${imageName}`);
             } catch (error) {
                 console.warn(`Imagem não encontrada: ${imageName}. Usando imagem padrão.`);
-                return require('../assets/bannoffee.jpg');
+                return require('../assets/CheeseOverload.png');
             }
         },
 
@@ -74,6 +72,11 @@ export default defineComponent({
                 imageName: this.imageName,
                 qtd: 1
             }
+
+            if (document.getElementById("bag")?.classList.contains("collapsed")) {
+                document.getElementById("item-changed")?.classList.remove("hidden")
+            }
+
             //Enviar para Bag.vue
             //console.log("Item.vue => ", item)
             this.$emit('add-item', item)
