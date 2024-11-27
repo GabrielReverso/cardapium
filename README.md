@@ -21,7 +21,7 @@ Cardapium/
 │   ├── index.html
 │   └── script.js
 └── src/
-    ├── assets
+    ├── assets/
     ├── components/
     │   └── vueComponents
     │         .
