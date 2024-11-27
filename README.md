@@ -1,5 +1,36 @@
 # cardapium
 
+## Project structure
+```
+Cardapium/
+├── configFiles
+│     .
+│     .
+│     .
+│
+├── backend/
+│   ├── database/
+│   │   └── db.sql
+│   └── server/
+│       └── phpFiles
+│             .
+│             .
+│             .
+│
+├── public/
+│   ├── index.html
+│   └── script.js
+└── src/
+    ├── assets
+    ├── components/
+    │   └── vueComponents
+    │         .
+    │         .
+    │         .
+    │
+    └── App.vue
+```
+
 ## Project setup
 ```
 npm install
